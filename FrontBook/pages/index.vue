@@ -1,9 +1,17 @@
 <template>
-  <Tutorial/>
+  <div>
+    <book-default/>
+  </div>
 </template>
 
 <script>
+import BookDefault from '../components/book/BookDefault.vue'
 export default {
-  name: 'IndexPage'
+  components: { BookDefault },
+
 }
 </script>
+
+<style>
+
+</style>
