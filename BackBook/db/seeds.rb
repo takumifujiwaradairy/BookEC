@@ -9,3 +9,7 @@ User.create(name: 'AAAA', email: 'a@gmail.com', password: 'AAAAAA', role: "user"
 User.create(name: 'BBBB', email: 'b@gmail.com', password: 'BBBBBB', role: "user")
 User.create(name: 'CCCC', email: 'c@gmail.com', password: 'CCCCCC', role: "user")
 User.create(name: 'Admin', email: 'admin@gmail.com', password: 'password', role: "admin")
+
+Book.create(title: 'マチネの終わりに', price: 850, author: '平野啓一郎', stock: 10, release_day: "2019/06/10")
+Book.create(title: '金閣寺', price: 670, author: '三島由紀夫', stock: 3, release_day: "1956/10/30")
+Book.create(title: '春の雪', price: 630, author: '三島由紀夫', stock: 8, release_day: "1969/01/05")
