@@ -13,3 +13,11 @@ User.create(name: 'Admin', email: 'admin@gmail.com', password: 'password', role:
 Book.create(title: 'マチネの終わりに', price: 850, author: '平野啓一郎', stock: 10, release_day: "2019/06/10")
 Book.create(title: '金閣寺', price: 670, author: '三島由紀夫', stock: 3, release_day: "1956/10/30")
 Book.create(title: '春の雪', price: 630, author: '三島由紀夫', stock: 8, release_day: "1969/01/05")
+
+Category.create(name: '小説')
+Category.create(name: '純文学')
+Category.create(name: '大衆小説')
+
+Category.create(name: '恋愛', parent_id: 1)
+Category.create(name: '冒険', parent_id: 1)
+Category.create(name: 'ファンタジー', parent_id: 2)
