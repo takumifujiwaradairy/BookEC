@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_05_092806) do
+ActiveRecord::Schema.define(version: 2022_03_06_043051) do
+
+  create_table "book_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_book_categories_on_book_id"
+    t.index ["category_id"], name: "index_book_categories_on_category_id"
+  end
 
   create_table "books", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
@@ -56,4 +65,6 @@ ActiveRecord::Schema.define(version: 2022_03_05_092806) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "book_categories", "books"
+  add_foreign_key "book_categories", "categories"
 end
