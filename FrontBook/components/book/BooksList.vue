@@ -17,14 +17,14 @@
       </li>
       <li>
         <label>親のカテゴリー</label>
-        <select v-model="query.parentCategoryId" @change="parentCategoriesIsSelected()">
-          <option v-for="category in parentCategories()" :key="category.id" :value="category.id">{{ category.name }}</option>
+        <select v-model="query.parentCategoryId">
+          <option v-for="category in parentCategories" :key="category.id" :value="category.id">{{ category.name }}</option>
         </select>
       </li>
       <li>
         <label>子のカテゴリー</label>
         <select v-model="query.categories_id_in" >
-          <option v-for="category in childCategories(query.parentCategoryId)" :key="category.id" :value="parentCategoryId">{{ category.name }}</option>
+          <option v-for="category in childCategories" :key="category.id" :value="category.id">{{ category.name }}</option>
         </select>
       </li>
       <button @click="search">検索</button>
@@ -63,7 +63,6 @@ import Qs from "qs";
 export default {
   data() {
     return {
-      isSearch: false,
       query: {
         name_cont: '',
         author_cont: '',
@@ -84,6 +83,24 @@ export default {
       required: true,
     }
   },
+  computed: {
+    parentCategories: function() {
+      const selectCategories = this.categories.filter(function(category){
+        return category.parent_id === null;
+      });
+      return selectCategories;
+    },
+    childCategories() {
+      if(this.query.parentCategoryId == '') {
+        return this.categories;
+      } else {
+        const selectCategories = this.categories.filter(category => {
+          return category.parent_id == this.query.parentCategoryId
+        })
+        return selectCategories;
+      }
+    }
+  },
   methods: {
     search() {
       axios.get("/api/books", { params: { q: this.query }, 
@@ -94,28 +111,6 @@ export default {
       .then((response) => {
         this.$store.commit("setBooks", response.data);
       })
-    },
-    parentCategories() {
-      // parent_idが存在しないデータだけを絞り込む
-      const selectCategories = this.categories.filter(function(category){
-        return category.parent_id === null;
-      });
-      return selectCategories;
-    },
-    parentCategoriesIsSelected() {
-      this.isSearch = true;
-    },
-      // 親カテゴリーが選択されたidの物だけを絞り込むようにする。
-      // 親カテゴリーが選択されていない場合は、子カテゴリーをすべて表示する。
-    childCategories(parentCategoryId) {
-      if(this.isSearch) {
-        const selectCategories = this.categories.filter(function(category){
-          return category.parent_id === parentCategoryId;
-        })
-        return selectCategories;
-      } else {
-        return this.categories;
-      }
     }
   }
 }
