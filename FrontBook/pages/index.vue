@@ -1,6 +1,6 @@
 <template>
   <div>
-    <books-list :books="getBooks"/>
+    <books-list :books="getBooks" :categories="getCategories"/>
   </div>
 </template>
 
@@ -13,13 +13,14 @@ export default {
     BooksList 
   },
   methods: { 
-    ...mapActions(['fetchBooks'])
+    ...mapActions(['fetchBooks', 'fetchCategories'])
   },
   computed: { 
-    ...mapGetters(['getBooks'])
+    ...mapGetters(['getBooks', 'getCategories'])
   },
   created() { 
     this.fetchBooks()
+    this.fetchCategories()
   }
 }
 </script>
